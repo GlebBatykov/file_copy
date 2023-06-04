@@ -23,7 +23,7 @@
 The `CopyFile` class contains methods:
 
 - `copyFile` - copies the file;
-- `watch CopyFile` - copies the file, returns the stream with the progress of copying the file, ends the stream when copying is completed;
+- `watchCopyFile` - copies the file, returns the stream with the progress of copying the file, ends the stream when copying is completed;
 - `copyDirectory` - copies the directory recursively;
-- `watch CopyDirectory` - copies the directory, returns the stream with the progress of copying the file, ends the stream when copying is completed;
+- `watchCopyDirectory` - copies the directory, returns the stream with the progress of copying the file, ends the stream when copying is completed;
 - `copy Link` - copies the link.
