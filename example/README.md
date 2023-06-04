@@ -1,6 +1,6 @@
 <div align="center">
 
-[![pub package](https://img.shields.io/pub/v/copier.svg?label=copier&color=blue)](https://pub.dev/packages/copier)
+[![pub package](https://img.shields.io/pub/v/file_copy.svg?label=file_copy&color=blue)](https://pub.dev/packages/file_copy)
 
 **Languages:**
   
@@ -8,3 +8,48 @@
 [![Russian](https://img.shields.io/badge/Language-Russian-blue?style=?style=flat-square)](README.ru.md)
 
 </div>
+
+Example of copying file:
+
+```dart
+  final file = File.fromUri(Uri.file('path_to_file'));
+
+  await FileCopy.copyFile(file, 'path_to_copied_file');
+```
+
+Example of copying directory:
+
+```dart
+  final directory = Directory.fromUri(Uri.directory('path_to_directory'));
+
+  await FileCopy.copyDirectory(directory, 'path_to_copied_directory');
+```
+
+Example of monitoring the progress of copying using callback:
+
+```dart
+  final file = File.fromUri(Uri.file('path_to_file'));
+
+  await FileCopy.copyFile(
+    file,
+    'path_to_copied_file',
+    onChangeProgress: (progress) {
+      print(progress.progress);
+    },
+  );
+```
+
+Example of monitoring the progress of copying using stream:
+
+```dart
+  final directory = Directory.fromUri(Uri.directory('path_to_directory'));
+
+  final observable = FileCopy.watchCopyDirectory(
+    directory,
+    'path_to_copied_directory',
+  );
+
+  observable.progressStream.listen((event) {
+    print(event.progress);
+  });
+```

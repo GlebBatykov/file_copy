@@ -1,6 +1,6 @@
 <div align="center">
 
-[![pub package](https://img.shields.io/pub/v/copier.svg?label=copier&color=blue)](https://pub.dev/packages/copier)
+[![pub package](https://img.shields.io/pub/v/file_copy.svg?label=file_copy&color=blue)](https://pub.dev/packages/file_copy)
 
 **Языки:**
   
@@ -12,19 +12,44 @@
 Пример копирования файла:
 
 ```dart
+  final file = File.fromUri(Uri.file('path_to_file'));
+
+  await FileCopy.copyFile(file, 'path_to_copied_file');
 ```
 
 Пример копирования каталога:
 
 ```dart
+  final directory = Directory.fromUri(Uri.directory('path_to_directory'));
+
+  await FileCopy.copyDirectory(directory, 'path_to_copied_directory');
 ```
 
 Пример наблюдения за прогрессом копирования при помощи обратного вызова:
 
 ```dart
+  final file = File.fromUri(Uri.file('path_to_file'));
+
+  await FileCopy.copyFile(
+    file,
+    'path_to_copied_file',
+    onChangeProgress: (progress) {
+      print(progress.progress);
+    },
+  );
 ```
 
 Пример наблюдения за прогрессом копирования при помощи потока:
 
 ```dart
+  final directory = Directory.fromUri(Uri.directory('path_to_directory'));
+
+  final observable = FileCopy.watchCopyDirectory(
+    directory,
+    'path_to_copied_directory',
+  );
+
+  observable.progressStream.listen((event) {
+    print(event.progress);
+  });
 ```
