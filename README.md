@@ -1,6 +1,6 @@
 <div align="center">
 
-[![pub package](https://img.shields.io/pub/v/file_copy.svg?label=copifile_copyer&color=blue)](https://pub.dev/packages/file_copy)
+[![pub package](https://img.shields.io/pub/v/file_copy.svg?label=file_copy&color=blue)](https://pub.dev/packages/file_copy)
 
 **Languages:**
   
