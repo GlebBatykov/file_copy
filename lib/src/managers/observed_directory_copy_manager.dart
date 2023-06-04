@@ -4,28 +4,33 @@ import 'dart:io';
 import '../extensions/directory_extension.dart';
 import '../copy_progress.dart';
 import '../types.dart';
+import 'observable_copy.dart';
 
 class ObservedDirectoryCopyManager {
   final List<Future<void>> _futures = [];
 
   late final ProgressNotifyCallback _notifyCallback;
 
-  Stream<CopyProgress> copy(Directory directory, String path) {
+  ObservableCopy copy(Directory directory, String path) {
     final controller = StreamController<CopyProgress>();
+
+    final completer = Completer<void>();
 
     _recursivelyCopyDirectory(
       directory: directory,
       path: path,
-      cotnroller: controller,
+      controller: controller,
+      completer: completer,
     );
 
-    return controller.stream;
+    return ObservableCopy(controller.stream, completer.future);
   }
 
   Future<void> _recursivelyCopyDirectory({
     required Directory directory,
     required String path,
-    required StreamController<CopyProgress> cotnroller,
+    required StreamController<CopyProgress> controller,
+    required Completer<void> completer,
   }) async {
     final fromPath = directory.path.substring(0, directory.path.length - 1);
 
@@ -35,7 +40,7 @@ class ObservedDirectoryCopyManager {
     _notifyCallback = (length) {
       remains -= length;
 
-      cotnroller.sink.add(CopyProgress(total, remains));
+      controller.sink.add(CopyProgress(total, remains));
     };
 
     await _copyDirectory(
@@ -45,6 +50,8 @@ class ObservedDirectoryCopyManager {
     );
 
     await Future.wait(_futures);
+
+    completer.complete();
 
     _futures.clear();
   }

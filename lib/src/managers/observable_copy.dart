@@ -1,4 +1,4 @@
-import 'package:copier/src/copy_progress.dart';
+import '../copy_progress.dart';
 
 class ObservableCopy {
   final Stream<CopyProgress> progressStream;

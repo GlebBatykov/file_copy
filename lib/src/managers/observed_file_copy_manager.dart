@@ -2,24 +2,29 @@ import 'dart:async';
 import 'dart:io';
 
 import '../copy_progress.dart';
+import 'observable_copy.dart';
 
 class ObservedFileCopyManager {
-  Stream<CopyProgress> copy(File file, String path) {
+  ObservableCopy copy(File file, String path) {
     final controller = StreamController<CopyProgress>();
+
+    final completer = Completer<void>();
 
     _copyFile(
       file: file,
       path: path,
       controller: controller,
+      completer: completer,
     );
 
-    return controller.stream;
+    return ObservableCopy(controller.stream, completer.future);
   }
 
   Future<void> _copyFile({
     required File file,
     required String path,
     required StreamController<CopyProgress> controller,
+    required Completer<void> completer,
   }) async {
     final newPath = file.absolute.path.replaceFirst(file.path, path);
 
@@ -46,7 +51,9 @@ class ObservedFileCopyManager {
       controller.sink.add(CopyProgress(total, remains));
     }
 
-    sink.close();
+    await sink.close();
+
+    completer.complete();
 
     await controller.close();
   }

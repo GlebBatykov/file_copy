@@ -1,3 +1,4 @@
+///
 class CopyProgress {
   ///
   final int total;
