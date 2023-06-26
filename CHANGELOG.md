@@ -1,4 +1,9 @@
-# 1.0.4
+# 1.0.5
+
+- Add exports.
+- Fix DirectoryCopyManager.
+
+## 1.0.4
 
 - Add export for DirectoryExtension.
 

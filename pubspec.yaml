@@ -1,6 +1,6 @@
 name: file_copy
 description: Package for copy files, directories, links. You can watch the copying process.
-version: 1.0.4
+version: 1.0.5
 repository: https://github.com/GlebBatykov/file_copy
 
 environment:
