@@ -22,7 +22,9 @@ class DirectoryCopyManager {
 
     _notifyCallback = (length) {
       if (onChangeProgress != null && total != null && remains != null) {
-        onChangeProgress(CopyProgress(total, remains));
+        remains = remains! - length;
+
+        onChangeProgress(CopyProgress(total, remains!));
       }
     };
 
@@ -46,11 +48,11 @@ class DirectoryCopyManager {
 
     for (final entity in entities) {
       if (entity is Directory) {
-        _futures.add(_copyDirectory(
+        await _copyDirectory(
           directory: entity,
           fromPath: fromPath,
           toPath: toPath,
-        ));
+        );
       } else if (entity is File) {
         _futures.add(_copyFile(
           file: entity,
