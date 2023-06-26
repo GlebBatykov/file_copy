@@ -1,4 +1,8 @@
-# 1.0.3
+# 1.0.4
+
+- Add export for DirectoryExtension.
+
+## 1.0.3
 
 - Update README files.
 
