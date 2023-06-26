@@ -31,6 +31,7 @@ abstract class FileCopyManager {
 
       if (onChangeProgress != null && total != null && remains != null) {
         remains -= bytes.length;
+
         onChangeProgress(CopyProgress(total, remains));
       }
     }
